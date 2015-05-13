@@ -1,0 +1,380 @@
+/* Phonegap configuration */
+.event {
+    border-radius:4px;
+    -webkit-border-radius:4px;
+    color:#FFFFFF;
+    font-size:12px;
+    margin:0px 30px;
+    padding:2px 0px;
+}
+
+.event.listening {
+    background-color:#333333;
+    display:block;
+}
+
+.event.received {
+    background-color:#4B946A;
+    display:none;
+}
+
+@keyframes fade {
+    from { opacity: 1.0; }
+    50% { opacity: 0.4; }
+    to { opacity: 1.0; }
+}
+ 
+@-webkit-keyframes fade {
+    from { opacity: 1.0; }
+    50% { opacity: 0.4; }
+    to { opacity: 1.0; }
+}
+ 
+.blink {
+    animation:fade 3000ms infinite;
+    -webkit-animation:fade 3000ms infinite;
+}
+
+/* Text fonts */
+@font-face {
+  font-family: 'Lobster';
+  font-style: normal;
+  font-weight: 400;
+  src: 
+    local('Lobster-Regular'), 
+    url('../fonts/Lobster-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: 
+    local('Roboto-Regular'), 
+    url('../fonts/Roboto-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Amaranth';
+  font-style: normal;
+  font-weight: 400;
+  src: 
+    local('Amaranth'), 
+    url('../fonts/Amaranth-Regular.ttf') format('truetype');
+}
+
+/* Index style */
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #81A4FC;
+  -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
+  -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
+  -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
+}
+
+.navbar-default {
+  background-color: #477BFF;
+  border-color: #477BFF;
+  -webkit-box-shadow: 0px 3px 1px #000000;
+  -moz-box-shadow: 0px 3px 1px #000000;
+  box-shadow: 0px 1px 4px #000000;
+}
+
+.navbar-default .navbar-brand {
+  color: #ffffff;
+  padding: 13px;
+}
+
+.navbar-default .navbar-brand img {
+  margin-top: -9px;
+}
+
+.navbar-default .navbar-text {
+  color: #ffffff;
+}
+
+.navbar-default .navbar-nav > li > a {
+  color: #ffffff;
+  font-size: 15px;
+}
+
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+  color: #ffffff;
+  background-color: #3961C4;
+}
+
+.navbar-toggle {
+  height: 35px;
+  width: 46px;
+}
+
+.navbar-toggle span {
+  margin-left: 1px;
+}
+
+.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+  background-color: #477BFF;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: #ffffff;
+}
+
+#custom-nav {
+  font-size: 1.1em;
+}
+
+#ssfinder-title {
+  font-family: 'Lobster', cursive;
+  font-size: 30px;
+  margin-top: 1px;
+}
+
+#ssfinder-title:hover {
+  color: #ffffff;
+}
+
+#version-title {
+  font-size: 9px;
+}
+
+#home > #transparent-div {
+  font-size: 17px;
+}
+
+#transparent-div {
+  background-color:#ffffff; 
+  border-color: #477BFF;
+  border-radius: 5px;
+  -webkit-box-shadow: 0px 3px 1px #000000;
+  -moz-box-shadow: 0px 3px 1px #000000;
+  box-shadow: 0px 1px 4px #000000;
+}
+
+#panel-heading {
+  font-size: 25px;
+  background-color: #477BFF;
+  border-color: #477BFF;
+  font-family: 'Amaranth', sans-serif;
+}
+
+#google-maps {
+  padding: 0px;
+}
+
+#googleMap {
+  width: 100%; 
+  height: 580px;
+}
+
+
+
+#detail .panel-body #googleMap {
+  margin-left: 5%;
+  width: 90%; 
+  height: 450px;
+}
+
+#loader {
+  position: absolute;
+  border: none;
+  border-radius: 10px;
+  left: 40%;
+  width:20%; 
+  top: 40%;
+  height:127px;
+  text-align: center;
+  font-size: 15px;
+  z-index:1002;
+  overflow: auto;
+}
+
+#content-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  z-index:1001;
+  opacity:.75;
+  -moz-opacity: 0.75;
+  filter: alpha(opacity=75);
+}
+
+#loader img {
+  width:100; 
+  height:100px;
+  text-align: center;
+}
+
+hr {
+  border-color: #BCBCBC;
+}
+
+#num-headquarters {
+  font-size: 10px;
+  text-align: center;
+}
+
+#headquarter-panel {
+  border: 1px solid #BCBCBC;
+  border-radius: 5px;
+  margin-top: 10px;
+  background-color: #F5F5F5;
+}
+
+#headquarter-panel h3 { 
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-bottom: 3px;
+  color: #1755FF;
+}
+
+#headquarter-panel-info {
+  margin-top: 0px;
+  margin-left: 10px;
+  margin-bottom: 5px;
+  color: #6A6A6A;
+}
+
+#headquarter-panel-icons {
+  margin-top: 0px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  color: #6A6A6A;
+}
+
+#headquarter-panel-a {
+  text-decoration: none;
+}
+
+.form-control, .btn {
+  height: 43px;
+  font-size: 15px;
+}
+
+#detail p {
+  font-size: 16.5px;
+}
+
+#panel-footer {
+  font-size: 11px;
+  background-color: #477BFF;
+  color: white;
+  border-color: #477BFF;
+  height: 50px;
+  -webkit-box-shadow: 0px 3px 1px #000000;
+  -moz-box-shadow: 0px 3px 1px #000000;
+  box-shadow: 0px 1px 4px #000000;
+}
+
+#panel-footer > div {
+  vertical-align: middle;
+}
+
+/* Horizontal screen phones and vertical screen tablets: 767px */
+@media (max-width: 767px) {
+  .container {
+    padding: 0px;
+  }
+
+  .navbar-default {
+    border-radius: 0px;
+  }
+
+  .navbar-default .navbar-nav > li > a {
+    font-size: 18px;
+  }
+
+  #transparent-div {
+    margin-right: 8px;
+    margin-left: 8px;
+    border-radius: 5px;
+  }
+
+  #googleMap {
+    width: 100%; 
+    height: 380px;
+  }
+
+  #detail .panel-body #googleMap {
+    margin-left: 0%;
+    width: 100%; 
+    height: 400px;
+  }
+
+  #loader {
+    position: fixed;
+    border: none;
+    border-radius: 5px;
+    left: 25%;
+    width:50%; 
+    top: 40%;
+    height:127px;
+    text-align: center;
+  }
+
+  #location-p-button {
+    text-align: center;
+  }
+
+  #panel-footer {
+    position: absolute;
+    border-radius: 0px;
+    width: 100%;
+  }
+}
+
+/* Vertical screen phones: 480px */
+@media (max-width: 480px) {
+  .container {
+    padding: 0px;
+  }
+
+  .navbar-default {
+    border-radius: 0px;
+  }
+
+  .navbar-default .navbar-nav > li > a {
+    font-size: 18px;
+  }
+
+  #transparent-div {
+    margin-right: 4px;
+    margin-left: 4px;
+    border-radius: 5px;
+  }
+
+  #googleMap {
+    width: 100%; 
+    height: 380px;
+  }
+
+  #detail .panel-body #googleMap {
+    margin-left: 0%;
+    width: 100%; 
+    height: 300px;
+  }
+
+  #loader {
+    position: fixed;
+    border: none;
+    border-radius: 5px;
+    left: 20%;
+    width:60%; 
+    top: 40%;
+    height:127px;
+    text-align: center;
+  }
+
+  #location-p-button {
+    text-align: center;
+  }
+
+  #panel-footer {
+    border-radius: 0px;
+    font-size: 10px;
+    width: 100%;
+  }
+}
