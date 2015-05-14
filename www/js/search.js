@@ -1,35 +1,63 @@
 function loadSearch() {
-	var htmlTitle = '<a id="headquarter-panel-a" href="#detail"><div id="headquarter-panel"><h3>Centro de prueba</h3>';
-	var htmlBody = '<p id="headquarter-panel-info">Categoría, Categoría (<strong>Localidad</strong>, <strong>Provincia</strong>)</p>'
-		+ '<p id="headquarter-panel-icons"><span><img src="../www/img/facebook.png" width="19px" height="19px" align="center" /></span> '
-		+ '<span><img src="../www/img/twitter.png" width="19px" height="19px" align="center" /></span> '
-		+ '<span><img src="../www/img/instagram.png" width="19px" height="19px" align="center" /></span> '
-		+ '<span><img src="../www/img/google.png" width="19px" height="19px" align="center" /></span> '
-		+ '<span><img src="../www/img/trumblr.png" width="19px" height="19px" align="center" /></span> '
-		+ '<span><img src="../www/img/web.png" width="19px" height="19px" align="center" /></span></p></div></a>';
-	var count = 0;
-	if (!$('#search-list').is(':empty')) {
-		$('#search-list').empty();
-		while(count < 8) {
-			$('#search-list').append(htmlTitle + htmlBody);
-			count++;
-		}
-	} else {
-		while(count < 8) {
-			$('#search-list').append(htmlTitle + htmlBody);
-			count++;
+	xmlhttp = new XMLHttpRequest();
+	xmlhttp.open("GET","http://www.robotclip.org:4088/social_service/social_services/", true);
+	xmlhttp.onreadystatechange = function() {
+	    if(xmlhttp.readyState == 4) {
+	        var jsonResponse = JSON.parse(xmlhttp.responseText);
+	        loadSearchList(jsonResponse);
+	        loadPagination();
+	    }
+	}
+	xmlhttp.send(null);
+
+    function loadSearchList(jsonTemp) {
+    	function loadItem(index) {
+			var htmlTitle = '<a id="headquarter-panel-a" href="#detail"><div id="headquarter-panel"><h3>' + jsonTemp[index].name + '</h3>';
+			var htmlBody = '<p id="headquarter-panel-info">' + jsonTemp[index].categories + '<br/><strong>' + jsonTemp[index].town 
+				+ '</strong> (<strong>' + jsonTemp[index].province + '</strong>)<br/>';
+			var social = loadSocialItems(index);
+			return htmlTitle + htmlBody + social + '</p></div></a>';
 		};
+
+		function loadSocialItems(index) {
+			var social = '';
+			if(jsonTemp[index].web != '') 
+				social += '<span><img src="../www/img/web.png" width="19px" height="19px" align="center" /></span> ';
+			if(jsonTemp[index].facebook != '')
+				social += '<span><img src="../www/img/facebook.png" width="19px" height="19px" align="center" /></span> ';
+			if(jsonTemp[index].twitter != '')
+				social += '<span><img src="../www/img/twitter.png" width="19px" height="19px" align="center" /></span> ';
+			if(jsonTemp[index].instagram != '')
+				social += '<span><img src="../www/img/instagram.png" width="19px" height="19px" align="center" /></span> ';
+			if(jsonTemp[index].google_plus != '')
+				social += '<span><img src="../www/img/google.png" width="19px" height="19px" align="center" /></span> ';
+			if(jsonTemp[index].tumblr != '')
+				social += '<span><img src="../www/img/trumblr.png" width="19px" height="19px" align="center" /></span> ';
+			social += '';
+			return social;
+		}
+		
+		if (!$('#search-list').is(':empty')) {
+			$('#search-list').empty() ;
+			for(i = 0; i < jsonTemp.length; i++) {
+				$('#search-list').append(loadItem(i));
+			}
+		} else {
+			for(i = 0; i < jsonTemp.length; i++) {
+				$('#search-list').append(loadItem(i));
+			};
+		};
+
+		$(document).on('click', '#search-list > a', function() {
+		    var href = $(this).attr('href');
+		    $("#containers > div:visible").hide();
+		    $(href).show();
+
+		    if($('#detail').is(':visible')) {
+		        loadDetail();
+		    };
+		});
 	};
-
-	$(document).on('click', '#search-list > a', function() {
-	    var href = $(this).attr('href');
-	    $("#containers > div:visible").hide();
-	    $(href).show();
-
-	    if($('#detail').is(':visible')) {
-	        loadDetail();
-	    };
-	});
 };
 
 function loadPagination() {
@@ -44,4 +72,6 @@ function loadPagination() {
 	} else {
 		$('#pagination').append(pagination);
 	};
+	$('#content-loader').hide();
+    $('#loader').hide();
 };                            
