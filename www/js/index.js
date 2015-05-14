@@ -59,8 +59,9 @@ $('document').ready(function() {
             };
 
             if($('#headquarters').is(':visible')) {
+                $('#content-loader').show();
+                $('#loader').show();
                 loadSearch();
-                loadPagination();
             };
         };
     });

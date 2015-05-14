@@ -167,8 +167,6 @@ body {
   height: 580px;
 }
 
-
-
 #detail .panel-body #googleMap {
   margin-left: 5%;
   width: 90%; 
@@ -225,16 +223,16 @@ hr {
 }
 
 #headquarter-panel h3 { 
-  margin-top: 10px;
+  margin-top: 6px;
   margin-left: 10px;
-  margin-bottom: 3px;
+  margin-bottom: 0px;
   color: #1755FF;
 }
 
 #headquarter-panel-info {
   margin-top: 0px;
   margin-left: 10px;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
   color: #6A6A6A;
 }
 
