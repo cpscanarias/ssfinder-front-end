@@ -1,18 +1,18 @@
 function loadSearch() {
 	xmlhttp = new XMLHttpRequest();
-	xmlhttp.open("GET","http://www.robotclip.org:4088/social_service/social_services/", true);
+	xmlhttp.open("GET","http://www.robotclip.org:4088/social_service/social_services_summary/", true);
 	xmlhttp.onreadystatechange = function() {
 	    if(xmlhttp.readyState == 4) {
 	        var jsonResponse = JSON.parse(xmlhttp.responseText);
 	        loadSearchList(jsonResponse);
-	        loadPagination();
+	        loadPagination(jsonResponse);
 	    }
 	}
 	xmlhttp.send(null);
 
     function loadSearchList(jsonTemp) {
     	function loadItem(index) {
-			var htmlTitle = '<a id="headquarter-panel-a" href="#detail"><div id="headquarter-panel"><h3>' + jsonTemp[index].name + '</h3>';
+			var htmlTitle = '<a id="' + jsonTemp[index].id + '" class="headquarter-panel-a" href="#detail"><div id="headquarter-panel"><h3>' + jsonTemp[index].name + '</h3>';
 			var htmlBody = '<p id="headquarter-panel-info">' + jsonTemp[index].categories + '<br/><strong>' + jsonTemp[index].town 
 				+ '</strong> (<strong>' + jsonTemp[index].province + '</strong>)<br/>';
 			var social = loadSocialItems(index);
@@ -37,16 +37,21 @@ function loadSearch() {
 			return social;
 		}
 		
-		if (!$('#search-list').is(':empty')) {
-			$('#search-list').empty() ;
-			for(i = 0; i < jsonTemp.length; i++) {
+		function loadJSONItem(size) {
+			for(i = 0; i < size; i++) {
 				$('#search-list').append(loadItem(i));
 			}
+		}
+
+		if(jsonTemp.length <= 8) {
+			if (!$('#search-list').is(':empty'))
+				$('#search-list').empty() ;
+			loadJSONItem(jsonTemp.length);
 		} else {
-			for(i = 0; i < jsonTemp.length; i++) {
-				$('#search-list').append(loadItem(i));
-			};
-		};
+			if (!$('#search-list').is(':empty'))
+				$('#search-list').empty() ;
+			loadJSONItem(8);
+		}
 
 		$(document).on('click', '#search-list > a', function() {
 		    var href = $(this).attr('href');
@@ -54,13 +59,15 @@ function loadSearch() {
 		    $(href).show();
 
 		    if($('#detail').is(':visible')) {
-		        loadDetail();
+		    	$('#content-loader').show();
+                $('#loader').show();
+		        loadDetail(this.id);
 		    };
 		});
 	};
 };
 
-function loadPagination() {
+function loadPagination(jsonTemp) {
 	var pagination = '<li><a href="/#" aria-label="Anterior"><span aria-hidden="true">&laquo;</span></a></li>'
 		+ '<li><a href="/#">1</a></li>'
 		+ '<li><a href="/#">2</a></li>'
