@@ -13,22 +13,22 @@ function loadDetail(index) {
         function loadWebItem() {
             var social = '';
             if(jsonTemp.web != '') 
-                social += '<p><span><img src="img/web.png" width="19px" height="19px" align="center" /></span> <strong>' + jsonTemp.web + '</strong></p>';
+                social += '<p><span><img src="img/web.png" width="19px" height="19px" align="center" /></span> <strong>' + '<a href="' + jsonTemp.web + '">' + jsonTemp.web + '</strong></a></p>';
             return social;
         }
 
         function loadSocialItems() {
             var social = '';
             if(jsonTemp.facebook != '')
-                social += '<p><span><img src="img/facebook.png" width="20px" height="20px" align="center" /></span> ' + jsonTemp.facebook + '</p>';
+                social += '<p><span><img src="img/facebook.png" width="20px" height="20px" align="center" /></span> ' + '<a href="' + jsonTemp.facebook + '">' + jsonTemp.facebook + '</a></p>';
             if(jsonTemp.twitter != '')
-                social += '<p><span><img src="img/twitter.png" width="20px" height="20px" align="center" /></span> ' + jsonTemp.twitter + '</p>';
+                social += '<p><span><img src="img/twitter.png" width="20px" height="20px" align="center" /></span> ' + '<a href="' + jsonTemp.twitter + '">' + jsonTemp.twitter + '</a></p>';
             if(jsonTemp.instagram != '')
-                social += '<p><span><img src="img/instagram.png" width="20px" height="20px" align="center" /></span> ' + jsonTemp.instagram + '</p>';
+                social += '<p><span><img src="img/instagram.png" width="20px" height="20px" align="center" /></span> ' + '<a href="' + jsonTemp.instagram + '">' + jsonTemp.instagram + '</a></p>';
             if(jsonTemp.google_plus != '')
-                social += '<p><span><img src="img/google.png" width="20px" height="20px" align="center" /></span> ' + jsonTemp.google_plus + '</p>';
+                social += '<p><span><img src="img/google.png" width="20px" height="20px" align="center" /></span> ' + '<a href="' + jsonTemp.google_plus + '">' + jsonTemp.google_plus + '</a></p>';
             if(jsonTemp.tumblr != '')
-                social += '<p><span><img src="img/trumblr.png" width="20px" height="20px" align="center" /></span> ' + jsonTemp.tumblr + '</p>';
+                social += '<p><span><img src="img/trumblr.png" width="20px" height="20px" align="center" /></span> ' + '<a href="' + jsonTemp.tumblr + '">' + jsonTemp.tumblr + '</a></p>';
             social += '';
             return social;
         }
@@ -45,8 +45,7 @@ function loadDetail(index) {
             + '<p><span><img src="img/email.png" width="21px" height="21px" align="center" /></span> <strong>' + jsonTemp.email + '</strong></p>'
             + loadWebItem();
         var social = '<p><u>Redes sociales</u>: </p>' + loadSocialItems();
-        var map = '<hr/><h4 style="text-align: center;"><span><img src="img/maps.png" width="20px" height="20px" align="center" /></span> ' 
-            + '<u>Ubicación</u></h4><div id="googleMap"></div>';
+        var map = '<hr/><div id="googleMap"></div>';
         
         if (!$('#detail .panel-body').is(':empty')) 
             $('#detail .panel-body').empty();

@@ -32,7 +32,10 @@ var app = {
 
 $('document').ready(function() {
     $('#containers > div').hide();
+    $('#a-home')[0].click();
     $('#home').show();
+    $('#content-loader').show();
+    $('#loader').show();
 
     $('.navbar-brand').click(function() {
         if(!$('#home').is(':visible')) {
@@ -71,6 +74,8 @@ $('document').ready(function() {
         if(xmlhttp.readyState == 4) {
             var jsonResponse = JSON.parse(xmlhttp.responseText);
             $('#num-headquarters').append(jsonResponse.length);
+            $('#content-loader').hide();
+            $('#loader').hide();
         }
     }
     xmlhttp.send(null);
