@@ -14,7 +14,7 @@ function loadSearch() {
     	function loadItem(index) {
 			var htmlTitle = '<a id="' + jsonTemp[index].id + '" class="headquarter-panel-a" href="#detail"><div id="headquarter-panel"><h3>' + jsonTemp[index].name + '</h3>';
 			var htmlBody = '<p id="headquarter-panel-info">' + jsonTemp[index].categories + '<br/><strong>' + jsonTemp[index].town 
-				+ '</strong> (<strong>' + jsonTemp[index].province + '</strong>)<br/>';
+				+ '</strong> (' + jsonTemp[index].province + ')<br/>';
 			var social = loadSocialItems(index);
 			return htmlTitle + htmlBody + social + '</p></div></a>';
 		};
