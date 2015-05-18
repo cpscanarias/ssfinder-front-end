@@ -1,16 +1,8 @@
-function loadSearch() {
-	xmlhttp = new XMLHttpRequest();
-	xmlhttp.open("GET","http://www.robotclip.org:4088/social_service/social_services_summary/", true);
-	xmlhttp.onreadystatechange = function() {
-	    if(xmlhttp.readyState == 4) {
-	        var jsonResponse = JSON.parse(xmlhttp.responseText);
-	        loadSearchList(jsonResponse);
-	        loadPagination(jsonResponse);
-	    }
-	}
-	xmlhttp.send(null);
+var size = 0;
+var pageNum = 0;
 
-    function loadSearchList(jsonTemp) {
+function loadSearch(initCount) {
+	function loadSearchList(jsonTemp) {
     	function loadItem(index) {
 			var htmlTitle = '<a id="' + jsonTemp[index].id + '" class="headquarter-panel-a" href="#detail"><div id="headquarter-panel"><h3>' + jsonTemp[index].name + '</h3>';
 			var htmlBody = '<p id="headquarter-panel-info">' + jsonTemp[index].categories + '<br/><strong>' + jsonTemp[index].town 
@@ -41,17 +33,13 @@ function loadSearch() {
 			for(i = 0; i < size; i++) {
 				$('#search-list').append(loadItem(i));
 			}
+			$('#content-loader').hide();
+            $('#loader').hide();
 		}
 
-		if(jsonTemp.length <= 8) {
-			if (!$('#search-list').is(':empty'))
-				$('#search-list').empty() ;
-			loadJSONItem(jsonTemp.length);
-		} else {
-			if (!$('#search-list').is(':empty'))
-				$('#search-list').empty() ;
-			loadJSONItem(8);
-		}
+		if(!$('#search-list').is(':empty'))
+			$('#search-list').empty();
+		loadJSONItem(jsonTemp.length);
 
 		$(document).on('click', '#search-list > a', function() {
 		    var href = $(this).attr('href');
@@ -65,20 +53,81 @@ function loadSearch() {
 		    };
 		});
 	};
+
+	$('#content-loader').show();
+    $('#loader').show();
+
+    pageNum = initCount;
+	xmlhttp = new XMLHttpRequest();
+	xmlhttp.open("GET","http://www.robotclip.org:4088/social_service/social_services_summary/?page=" + (initCount + 1), true);
+	xmlhttp.onreadystatechange = function() {
+	    if(xmlhttp.readyState == 4) {
+	    	var jsonTemp = JSON.parse(xmlhttp.responseText);
+	        var jsonResponse = jsonTemp.results;
+	        size = jsonTemp.count;
+	        loadSearchList(jsonResponse);
+	        if($('#pagination').is(':empty'))
+	        	loadPagination(jsonResponse);
+	    }
+	}
+	xmlhttp.send(null);
 };
 
+function pageSelected(pageIndex, sizeTemp) {
+	if(!$('#page' + pageIndex).is('.active')) {
+		$('#pagination > li').removeClass('active');
+		$('#page' + pageIndex).addClass('active');
+		pageNum = parseInt(pageIndex);
+		
+		if(pageNum == sizeTemp) {
+			$('#right-arrow').addClass('disabled');
+			$('#left-arrow').removeClass('disabled');
+		}
+		if(pageNum == 0) {
+			$('#left-arrow').addClass('disabled');
+			$('#right-arrow').removeClass('disabled');
+		}
+		if(pageNum > 0 && pageNum < sizeTemp) {
+			$('#left-arrow').removeClass('disabled');
+			$('#right-arrow').removeClass('disabled');
+		}
+		alert('pageIndex: ' + pageNum);
+		loadSearch(pageNum);
+	}
+}
+
 function loadPagination(jsonTemp) {
-	var pagination = '<li><a href="/#" aria-label="Anterior"><span aria-hidden="true">&laquo;</span></a></li>'
-		+ '<li><a href="/#">1</a></li>'
-		+ '<li><a href="/#">2</a></li>'
-		+ '<li><a href="/#">3</a></li>'
-		+ '<li><a href="/#" aria-label="Siguiente"><span aria-hidden="true">&raquo;</span></a></li>';
-	if (!$('#pagination').is(':empty')) {
+	var pagination;
+	var sizeTemp = parseInt(size / jsonTemp.length);
+
+	if(jsonTemp.length > 10) {
+		pagination = '<li id="left-arrow"><a href="#" aria-label="Anterior"><span aria-hidden="true">&laquo;</span></a></li>'
+		for(i = 0; i <= sizeTemp; i++) {
+			pagination += '<li id="page' + i + '"><a id="pageLink" href="#" onClick="pageSelected(\'' + i + '\', \'' + sizeTemp + '\')">' + (i + 1) + '</a></li>';
+		}
+		pagination += '<li id="right-arrow"><a href="#" aria-label="Siguiente"><span aria-hidden="true">&raquo;</span></a></li>';
+	}
+
+	if (!$('#pagination').is(':empty'))
 		$('#pagination').empty();
-		$('#pagination').append(pagination);
-	} else {
-		$('#pagination').append(pagination);
-	};
+	$('#pagination').append(pagination);
+	$('#left-arrow').addClass('disabled');
+	$('#page0').addClass('active');
+	
+	$('#left-arrow').click(function() {
+		if(!$('#left-arrow').is('.disabled')) {
+			pageNum--;
+			pageSelected(pageNum, sizeTemp);
+		}
+	});
+
+	$('#right-arrow').click(function() {
+		if(!$('#right-arrow').is('.disabled')) {
+			pageNum++;
+			pageSelected(pageNum, sizeTemp);
+		}
+	});
+
 	$('#content-loader').hide();
     $('#loader').hide();
-};                            
+};

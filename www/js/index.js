@@ -64,16 +64,18 @@ $('document').ready(function() {
             if($('#headquarters').is(':visible')) {
                 $('#content-loader').show();
                 $('#loader').show();
-                loadSearch();
+                if(!$('#pagination').is(':empty'))
+                    $('#pagination').empty();
+                loadSearch(0);
             };
         };
     });
     xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("GET","http://www.robotclip.org:4088/social_service/social_services/", true);
+    xmlhttp.open("GET","http://www.robotclip.org:4088/social_service/social_services_count/", true);
     xmlhttp.onreadystatechange = function() {
         if(xmlhttp.readyState == 4) {
             var jsonResponse = JSON.parse(xmlhttp.responseText);
-            $('#num-headquarters').append(jsonResponse.length);
+            $('#num-headquarters').append(jsonResponse.social_services_count);
             $('#content-loader').hide();
             $('#loader').hide();
         }
