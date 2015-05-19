@@ -11,7 +11,7 @@ function initializeGeneral() {
    map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
 
    xmlhttp = new XMLHttpRequest();
-   xmlhttp.open("GET","http://www.robotclip.org:4088/social_service/social_services/", true);
+   xmlhttp.open("GET","http://www.robotclip.org:4088/social_service/social_services_addresses/", true);
    xmlhttp.onreadystatechange = function() {
       if(xmlhttp.readyState == 4) {
          var jsonResponse = JSON.parse(xmlhttp.responseText);
