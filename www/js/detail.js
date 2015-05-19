@@ -24,11 +24,11 @@ function loadDetail(index) {
             if(jsonTemp.twitter != '')
                 social += '<p><span><img src="img/twitter.png" width="20px" height="20px" align="center" /></span> ' + '<a href="' + jsonTemp.twitter + '"> Twitter</a></p>';
             if(jsonTemp.instagram != '')
-                social += '<p><span><img src="img/instagram.png" width="20px" height="20px" align="center" /></span> ' + '<a href="' + jsonTemp.instagram + '">Instagram</a></p>';
+                social += '<p><span><img src="img/instagram.png" width="20px" height="20px" align="center" /></span> ' + '<a href="' + jsonTemp.instagram + '"> Instagram</a></p>';
             if(jsonTemp.google_plus != '')
-                social += '<p><span><img src="img/google.png" width="20px" height="20px" align="center" /></span> ' + '<a href="' + jsonTemp.google_plus + '">Google</a></p>';
+                social += '<p><span><img src="img/google.png" width="20px" height="20px" align="center" /></span> ' + '<a href="' + jsonTemp.google_plus + '"> Google</a></p>';
             if(jsonTemp.tumblr != '')
-                social += '<p><span><img src="img/trumblr.png" width="20px" height="20px" align="center" /></span> ' + '<a href="' + jsonTemp.tumblr + '">Trumblr</a></p>';
+                social += '<p><span><img src="img/trumblr.png" width="20px" height="20px" align="center" /></span> ' + '<a href="' + jsonTemp.tumblr + '"> Trumblr</a></p>';
             social += '';
             return social;
         }

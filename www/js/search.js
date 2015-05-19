@@ -91,7 +91,6 @@ function pageSelected(pageIndex, sizeTemp) {
 			$('#left-arrow').removeClass('disabled');
 			$('#right-arrow').removeClass('disabled');
 		}
-		alert('pageIndex: ' + pageNum);
 		loadSearch(pageNum);
 	}
 }
@@ -100,7 +99,7 @@ function loadPagination(jsonTemp) {
 	var pagination;
 	var sizeTemp = parseInt(size / jsonTemp.length);
 
-	if(jsonTemp.length > 10) {
+	if(jsonTemp.length > 1) {
 		pagination = '<li id="left-arrow"><a href="#" aria-label="Anterior"><span aria-hidden="true">&laquo;</span></a></li>'
 		for(i = 0; i <= sizeTemp; i++) {
 			pagination += '<li id="page' + i + '"><a id="pageLink" href="#" onClick="pageSelected(\'' + i + '\', \'' + sizeTemp + '\')">' + (i + 1) + '</a></li>';
