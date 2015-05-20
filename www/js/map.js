@@ -35,7 +35,7 @@ function initialize() {
          } else {
             var jsonString = jsonResponse.address + ", " + jsonResponse.postal_code + ", " 
                + jsonResponse.town + ", " + jsonResponse.province;
-            codeAddress(jsonString, jsonResponse.name, jsonResponse.address);
+            codeAddress(jsonString, jsonResponse.name, jsonResponse.address, jsonResponse.phone, jsonResponse.postal_code);
          }
       }
    }
@@ -51,15 +51,17 @@ function loadMapScript(index, mapType) {
    document.body.appendChild(script);
 }
 
-function codeAddress(direc, name, site) {
+function codeAddress(direc, name, site, phone, zipCode) {
    var address = direc;
    geocoder.geocode( { 'address': address}, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
          if(isDetail == true)
             map.setCenter(results[0].geometry.location);
+         var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
          var marker = new google.maps.Marker({
             map: map,
-            position: results[0].geometry.location
+            position: results[0].geometry.location,
+            icon: '../www/img/marker.png'
          });
          if(isDetail == false) {
             var infowindow = new google.maps.InfoWindow({ 
@@ -68,7 +70,9 @@ function codeAddress(direc, name, site) {
             infowindow.open(map, marker);
          } else {
             var infowindow = new google.maps.InfoWindow({ 
-               content: "<strong>" + name + "</strong>" + "<br/>" + site 
+               content: '<strong>' + name + '</strong><br/>' + site 
+                  + '<br/><span><img src="../www/img/phone.png" width="13px" height="13px" align="center" /></span> ' + phone
+                  + '<br/><span class="glyphicon glyphicon-envelope"></span> ' + zipCode
             });  
             infowindow.open(map, marker);
          }
