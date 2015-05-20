@@ -30,12 +30,12 @@ function initialize() {
             for(i = 0; i < jsonResponse.length; i++) {
                var jsonString = jsonResponse[i].address + ", " + jsonResponse[i].postal_code + ", " 
                   + jsonResponse[i].town + ", " + jsonResponse[i].province;
-               codeAddress(jsonString, jsonResponse[i].name, jsonResponse[i].address);
+               codeAddress(jsonString, jsonResponse[i].name, jsonResponse[i].address, jsonResponse[i].postal_code, jsonResponse[i].phone);
             }
          } else {
             var jsonString = jsonResponse.address + ", " + jsonResponse.postal_code + ", " 
                + jsonResponse.town + ", " + jsonResponse.province;
-            codeAddress(jsonString, jsonResponse.name, jsonResponse.address, jsonResponse.phone, jsonResponse.postal_code);
+            codeAddress(jsonString, jsonResponse.name, jsonResponse.address, jsonResponse.postal_code, jsonResponse.phone);
          }
       }
    }
@@ -51,7 +51,7 @@ function loadMapScript(index, mapType) {
    document.body.appendChild(script);
 }
 
-function codeAddress(direc, name, site, phone, zipCode) {
+function codeAddress(direc, name, site, zipCode, phone) {
    var address = direc;
    geocoder.geocode( { 'address': address}, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
@@ -65,16 +65,25 @@ function codeAddress(direc, name, site, phone, zipCode) {
          });
          if(isDetail == false) {
             var infowindow = new google.maps.InfoWindow({ 
-               content: "<strong>" + name + "</strong>" + "<br/>" + site 
+               content: '<strong>' + name + '</strong><br/>' + site 
+                  + '<br/><span class="glyphicon glyphicon-envelope"></span> ' + zipCode
+                  + '<br/><span><img src="../www/img/phone.png" width="13px" height="13px" align="center" /></span> ' + phone
+                  
             });  
             infowindow.open(map, marker);
+            google.maps.event.addListener(marker, 'click', function() {
+               infowindow.open(map, marker);
+            });
          } else {
             var infowindow = new google.maps.InfoWindow({ 
                content: '<strong>' + name + '</strong><br/>' + site 
-                  + '<br/><span><img src="../www/img/phone.png" width="13px" height="13px" align="center" /></span> ' + phone
                   + '<br/><span class="glyphicon glyphicon-envelope"></span> ' + zipCode
+                  + '<br/><span><img src="../www/img/phone.png" width="13px" height="13px" align="center" /></span> ' + phone
             });  
             infowindow.open(map, marker);
+            google.maps.event.addListener(marker, 'click', function() {
+               infowindow.open(map, marker);
+            });
          }
       } else {
          alert('Problema con la geolocalización: ' + status);
