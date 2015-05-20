@@ -131,9 +131,34 @@ $(document).on('click', '#search-list > a', function() {
 	loadDetail(this.id);;
 });
 
+$("#search-input").keyup(function (e) {
+    if (e.keyCode == 13) 
+        $('#search-button')[0].click();
+});
+
 $(document).on('click', '#search-button', function() {
 	if(document.getElementById('search-input').value != '') {
+		var irrelevantWords = ["a", "ante", "cabe", "con", "contra", "de", "desde", "en", 
+			"entre", "hasta", "para", "por", "segun", "sobre", "tras", "durante", "mediante", 
+			"sin", "con", "el", "la", "los", "las", "un", "una", "unos", "unas", "al", "del",
+			"e", "es", "lo", "los", "y"];
+		var searchWords = [];
+
 		var searchValue = document.getElementById('search-input').value;
-		alert(searchValue);
+		searchValue = searchValue.split(" ").join(',').toLowerCase();
+
+		for(i = 0; i < searchValue.split(",").length; i++)
+			searchWords[i] = searchValue.split(",")[i];
+		for(i = 0; i < searchWords.length; i++) {
+			for(j = 0; j < irrelevantWords.length; j++) {
+				if(searchWords[i] == irrelevantWords[j])
+					searchWords.splice(i, 1);
+			}
+		}
+
+		var searchData = "";
+		for(i = 0; i < searchWords.length; i++) 
+			searchData += searchWords[i] + "/";
+		alert(searchData);
 	}
 });

@@ -230,6 +230,10 @@ hr {
   border-color: #BCBCBC;
 }
 
+#detail-hr {
+  display: none;
+}
+
 #num-headquarters {
   font-size: 10px;
   text-align: center;
@@ -291,6 +295,17 @@ hr {
   vertical-align: middle;
 }
 
+/* Vertical screen tablets: 1199px */
+@media (max-width: 1199px) {
+  #detail .panel-body #googleMap {
+    float: bottom;
+    border: 2px solid #BCBCBC;
+    border-radius: 5px;
+    width: 50%;
+    height: 350px;
+  }
+}
+
 /* Horizontal screen phones and vertical screen tablets: 767px */
 @media (max-width: 767px) {
   .container {
@@ -334,6 +349,10 @@ hr {
     float: top;
     width: 100%;
     margin-right: 2%;
+  }
+
+  #detail-hr {
+    display: block;
   }
 
   #loader {
@@ -401,6 +420,10 @@ hr {
     float: top;
     width: 100%;
     margin-right: 0px;
+  }
+
+  #detail-hr {
+    display: block;
   }
 
   #loader {
