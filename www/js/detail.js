@@ -48,7 +48,7 @@ function loadDetail(index) {
             + '<p><span><img src="img/phone.png" width="20px" height="20px" align="center" /></span> <strong>' + jsonTemp.phone + '</strong></p>'
             + '<p><span><img src="img/email.png" width="21px" height="21px" align="center" /></span> <strong>' + jsonTemp.email + '</strong></p>'
             + loadWebItem();
-        var social = '<p><u>Redes sociales</u>: </p>' + loadSocialItems() + '</div>';
+        var social = '<p><u>Redes sociales</u>: </p>' + loadSocialItems() + '<hr id="detail-hr" /></div>';
         var map = '<div id="googleMap"></div>';
         
         $('#detail .panel-body').append(info + contact + social + map);
