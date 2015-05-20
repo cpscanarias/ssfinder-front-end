@@ -30,12 +30,12 @@ function initialize() {
             for(i = 0; i < jsonResponse.length; i++) {
                var jsonString = jsonResponse[i].address + ", " + jsonResponse[i].postal_code + ", " 
                   + jsonResponse[i].town + ", " + jsonResponse[i].province;
-               codeAddress(jsonString, jsonResponse[i].name);
+               codeAddress(jsonString, jsonResponse[i].name, jsonResponse[i].address);
             }
          } else {
             var jsonString = jsonResponse.address + ", " + jsonResponse.postal_code + ", " 
                + jsonResponse.town + ", " + jsonResponse.province;
-            codeAddress(jsonString, jsonResponse.name);
+            codeAddress(jsonString, jsonResponse.name, jsonResponse.address);
          }
       }
    }
@@ -51,7 +51,7 @@ function loadMapScript(index, mapType) {
    document.body.appendChild(script);
 }
 
-function codeAddress(direc, name) {
+function codeAddress(direc, name, site) {
    var address = direc;
    geocoder.geocode( { 'address': address}, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
@@ -61,8 +61,17 @@ function codeAddress(direc, name) {
             map: map,
             position: results[0].geometry.location
          });
-         var infowindow = new google.maps.InfoWindow({ content: name });  
-         infowindow.open(map, marker);
+         if(isDetail == false) {
+            var infowindow = new google.maps.InfoWindow({ 
+               content: "<strong>" + name + "</strong>" + "<br/>" + site 
+            });  
+            infowindow.open(map, marker);
+         } else {
+            var infowindow = new google.maps.InfoWindow({ 
+               content: "<strong>" + name + "</strong>" + "<br/>" + site 
+            });  
+            infowindow.open(map, marker);
+         }
       } else {
          alert('Problema con la geolocalización: ' + status);
       }

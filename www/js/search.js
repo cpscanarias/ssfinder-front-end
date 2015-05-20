@@ -160,5 +160,14 @@ $(document).on('click', '#search-button', function() {
 		for(i = 0; i < searchWords.length; i++) 
 			searchData += searchWords[i] + "/";
 		alert(searchData);
+	} else {
+		var html = '<p id="search-null"><h3>No se han obtenido resultados.</h3></p>'
+			+ '<h4>Prueba algunas recomendaciones:</h4>'
+			+ '<h5>- Comprueba que las <strong>palabras</strong> están <strong>bien escritas</strong>.</h5>'
+			+ '<h5>- Busca por <strong>nombre</strong>, <strong>categorías</strong> o <strong>dirección</strong>.</h5>'
+			+ '<h5>- Borra <strong>caracteres extraños</strong> o <strong>espacios de más</strong>.</h5>';
+		$('#search-list').empty();
+		$('#pagination').empty();
+		$('#search-list').append(html);
 	}
 });
