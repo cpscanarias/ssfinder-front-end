@@ -4,8 +4,12 @@ var pageNum = 0;
 function loadSearch(initCount) {
 	function loadSearchList(jsonTemp) {
     	function loadItem(index) {
+    		var categoriesSplited = JSON.stringify(jsonTemp[index].categories).split("\"").join('');
+    		categoriesSplited = categoriesSplited.split("[").join('');
+			categoriesSplited = categoriesSplited.split("]").join('');
+			categoriesSplited = categoriesSplited.split(",").join(', ');
 			var htmlTitle = '<a id="' + jsonTemp[index].id + '" class="headquarter-panel-a" href="#detail"><div id="headquarter-panel"><h3>' + jsonTemp[index].name + '</h3>';
-			var htmlBody = '<p id="headquarter-panel-info">' + jsonTemp[index].categories + '<br/><strong>' + jsonTemp[index].town 
+			var htmlBody = '<p id="headquarter-panel-info">' + categoriesSplited + '<br/><strong>' + jsonTemp[index].town 
 				+ '</strong> (' + jsonTemp[index].province + ')<br/>';
 			var social = loadSocialItems(index);
 			return htmlTitle + htmlBody + social + '</p></div></a>';
@@ -40,18 +44,6 @@ function loadSearch(initCount) {
 		if(!$('#search-list').is(':empty'))
 			$('#search-list').empty();
 		loadJSONItem(jsonTemp.length);
-
-		$(document).on('click', '#search-list > a', function() {
-		    var href = $(this).attr('href');
-		    $("#containers > div:visible").hide();
-		    $(href).show();
-
-		    if($('#detail').is(':visible')) {
-		    	$('#content-loader').show();
-                $('#loader').show();
-		        loadDetail(this.id);
-		    };
-		});
 	};
 
 	$('#content-loader').show();
@@ -100,11 +92,11 @@ function loadPagination(jsonTemp) {
 	var sizeTemp = parseInt(size / jsonTemp.length);
 
 	if(jsonTemp.length > 1) {
-		pagination = '<li id="left-arrow"><a href="#" aria-label="Anterior"><span aria-hidden="true">&laquo;</span></a></li>'
+		pagination = '<li id="left-arrow"><a href="#headquarters" aria-label="Anterior"><span aria-hidden="true">&laquo;</span></a></li>'
 		for(i = 0; i <= sizeTemp; i++) {
-			pagination += '<li id="page' + i + '"><a id="pageLink" href="#" onClick="pageSelected(\'' + i + '\', \'' + sizeTemp + '\')">' + (i + 1) + '</a></li>';
+			pagination += '<li id="page' + i + '"><a id="pageLink" href="#headquarters" onClick="pageSelected(\'' + i + '\', \'' + sizeTemp + '\')">' + (i + 1) + '</a></li>';
 		}
-		pagination += '<li id="right-arrow"><a href="#" aria-label="Siguiente"><span aria-hidden="true">&raquo;</span></a></li>';
+		pagination += '<li id="right-arrow"><a href="#headquarters" aria-label="Siguiente"><span aria-hidden="true">&raquo;</span></a></li>';
 	}
 
 	if (!$('#pagination').is(':empty'))
@@ -130,3 +122,18 @@ function loadPagination(jsonTemp) {
 	$('#content-loader').hide();
     $('#loader').hide();
 };
+
+$(document).on('click', '#search-list > a', function() {
+	$('#content-loader').show();
+    $('#loader').show();
+    if (!$('#detail .panel-body').is(':empty')) 
+        $('#detail .panel-body').empty();
+	loadDetail(this.id);;
+});
+
+$(document).on('click', '#search-button', function() {
+	if(document.getElementById('search-input').value != '') {
+		var searchValue = document.getElementById('search-input').value;
+		alert(searchValue);
+	}
+});

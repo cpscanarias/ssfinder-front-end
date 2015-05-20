@@ -31,45 +31,33 @@ var app = {
 };
 
 $('document').ready(function() {
-    $('#containers > div').hide();
     $('#a-home')[0].click();
-    $('#home').show();
     $('#content-loader').show();
     $('#loader').show();
-
-    $('.navbar-brand').click(function() {
-        if(!$('#home').is(':visible')) {
-            $("#containers > div:visible").hide();
-            $('#home').show();
-        }
-    });
 
     $('.navbar-collapse ul li a').click(function(e) {
         var opened = jQuery('.navbar-collapse').hasClass('collapse in');
         if ( opened === true ) {
             $('.navbar-toggle').click();
         }
-
-        var href = $(this).attr('href');
-        if(!$(href).is(':visible')) {
-            $("#containers > div:visible").hide();
-            $(href).show();
-
-            if($('#map').is(':visible')) {
-                $('#content-loader').show();
-                $('#loader').show();
-                loadGeneralMapScript();
-            };
-
-            if($('#headquarters').is(':visible')) {
-                $('#content-loader').show();
-                $('#loader').show();
-                if(!$('#pagination').is(':empty'))
-                    $('#pagination').empty();
-                loadSearch(0);
-            };
-        };
     });
+
+    $('#a-headquarters').click(function() {
+        $('#content-loader').show();
+        $('#loader').show();
+        if(!$('#pagination').is(':empty'))
+            $('#pagination').empty();
+        loadSearch(0);
+    });
+
+    $('#a-map').click(function() {
+        $('#content-loader').show();
+        $('#loader').show();
+        if(!$('#detail .panel-body').is(':empty'))
+            $('#detail .panel-body').empty();
+        loadMapScript(null, false);
+    });
+
     xmlhttp = new XMLHttpRequest();
     xmlhttp.open("GET","http://www.robotclip.org:4088/social_service/social_services_count/", true);
     xmlhttp.onreadystatechange = function() {
