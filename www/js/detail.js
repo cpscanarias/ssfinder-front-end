@@ -13,28 +13,32 @@ function loadDetail(index) {
         function loadWebItem() {
             var social = '';
             if(jsonTemp.web != '') 
-                social += '<p><span><img src="img/web.png" width="19px" height="19px" align="center" /></span> <strong>' + '<a href="' + jsonTemp.web + '"> ' + jsonTemp.web + '</strong></a></p>';
+                social += '<p><span><img src="img/web.png" width="19px" height="19px" align="center" /></span> <strong>' + '<a href="http://' + jsonTemp.web + '"> ' + jsonTemp.web + '</strong></a></p>';
             return social;
         }
 
         function loadSocialItems() {
             var social = '';
             if(jsonTemp.facebook != '')
-                social += '<p><span><img src="img/facebook.png" width="20px" height="20px" align="center" /></span> ' + '<a href="' + jsonTemp.facebook + '"> Facebook</a></p>';
+                social += '<p><span><img src="img/facebook.png" width="20px" height="20px" align="center" /></span> ' + '<a href="http://' + jsonTemp.facebook + '"> Facebook</a></p>';
             if(jsonTemp.twitter != '')
-                social += '<p><span><img src="img/twitter.png" width="20px" height="20px" align="center" /></span> ' + '<a href="' + jsonTemp.twitter + '"> Twitter</a></p>';
+                social += '<p><span><img src="img/twitter.png" width="20px" height="20px" align="center" /></span> ' + '<a href="http://' + jsonTemp.twitter + '"> Twitter</a></p>';
             if(jsonTemp.instagram != '')
-                social += '<p><span><img src="img/instagram.png" width="20px" height="20px" align="center" /></span> ' + '<a href="' + jsonTemp.instagram + '"> Instagram</a></p>';
+                social += '<p><span><img src="img/instagram.png" width="20px" height="20px" align="center" /></span> ' + '<a href="http://' + jsonTemp.instagram + '"> Instagram</a></p>';
             if(jsonTemp.google_plus != '')
-                social += '<p><span><img src="img/google.png" width="20px" height="20px" align="center" /></span> ' + '<a href="' + jsonTemp.google_plus + '"> Google</a></p>';
+                social += '<p><span><img src="img/google.png" width="20px" height="20px" align="center" /></span> ' + '<a href="http://' + jsonTemp.google_plus + '"> Google</a></p>';
             if(jsonTemp.tumblr != '')
-                social += '<p><span><img src="img/trumblr.png" width="20px" height="20px" align="center" /></span> ' + '<a href="' + jsonTemp.tumblr + '"> Trumblr</a></p>';
+                social += '<p><span><img src="img/trumblr.png" width="20px" height="20px" align="center" /></span> ' + '<a href="http://' + jsonTemp.tumblr + '"> Trumblr</a></p>';
             social += '';
             return social;
         }
 
-        var info = '<p><u>Nombre</u>: <strong>' + jsonTemp.name + '</strong></p>'
-            + '<p><u>Categoría</u>: <strong>' + jsonTemp.categories + '</strong></p>'
+        var categoriesSplited = JSON.stringify(jsonTemp.categories).split("\"").join('');
+            categoriesSplited = categoriesSplited.split("[").join('');
+            categoriesSplited = categoriesSplited.split("]").join('');
+            categoriesSplited = categoriesSplited.split(",").join(', ');
+        var info = '<div id="detail-div"><p><u>Nombre</u>: <strong>' + jsonTemp.name + '</strong></p>'
+            + '<p><u>Categorías</u>: <strong>' + categoriesSplited + '</strong></p>'
             + '<p><u>Provincia</u>: <strong>' + jsonTemp.province + '</strong></p>'
             + '<p><u>Municipio</u>: <strong>' + jsonTemp.town + '</strong></p>'
             + '<p><u>Dirección</u>: <strong>' + jsonTemp.address + '</strong></p>'
@@ -44,12 +48,10 @@ function loadDetail(index) {
             + '<p><span><img src="img/phone.png" width="20px" height="20px" align="center" /></span> <strong>' + jsonTemp.phone + '</strong></p>'
             + '<p><span><img src="img/email.png" width="21px" height="21px" align="center" /></span> <strong>' + jsonTemp.email + '</strong></p>'
             + loadWebItem();
-        var social = '<p><u>Redes sociales</u>: </p>' + loadSocialItems();
-        var map = '<hr/><div id="googleMap"></div>';
+        var social = '<p><u>Redes sociales</u>: </p>' + loadSocialItems() + '</div>';
+        var map = '<div id="googleMap"></div>';
         
-        if (!$('#detail .panel-body').is(':empty')) 
-            $('#detail .panel-body').empty();
         $('#detail .panel-body').append(info + contact + social + map);
-        loadDetailMapScript(jsonTemp.id);
+        loadMapScript(jsonTemp.id, true);
     }
 };

@@ -180,9 +180,17 @@ body {
 }
 
 #detail .panel-body #googleMap {
-  margin-left: 5%;
-  width: 90%; 
+  float: right;
+  border: 2px solid #BCBCBC;
+  border-radius: 5px;
+  width: 50%;
   height: 450px;
+}
+
+#detail-div {
+  float: left;
+  width: 48%;
+  margin-right: 2%;
 }
 
 #loader {
@@ -314,6 +322,20 @@ hr {
     height: 400px;
   }
 
+  #detail .panel-body #googleMap {
+    float: bottom;
+    border: 2px solid #BCBCBC;
+    border-radius: 5px;
+    width: 100%;
+    height: 450px;
+  }
+
+  #detail-div {
+    float: top;
+    width: 100%;
+    margin-right: 2%;
+  }
+
   #loader {
     position: fixed;
     border: none;
@@ -365,6 +387,20 @@ hr {
     margin-left: 0%;
     width: 100%; 
     height: 300px;
+  }
+
+  #detail .panel-body #googleMap {
+    float: bottom;
+    border: 2px solid #BCBCBC;
+    border-radius: 5px;
+    width: 100%;
+    height: 350px;
+  }
+
+  #detail-div {
+    float: top;
+    width: 100%;
+    margin-right: 0px;
   }
 
   #loader {
