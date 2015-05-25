@@ -47,6 +47,8 @@ $('document').ready(function() {
         $('#loader').show();
         if(!$('#pagination').is(':empty'))
             $('#pagination').empty();
+        if(document.getElementById('search-input').value != '')
+            document.getElementById('search-input').value = '';
         loadSearch(0, false, null);
     });
 

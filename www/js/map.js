@@ -65,10 +65,9 @@ function codeAddress(direc, name, site, zipCode, phone) {
          });
          if(isDetail == false) {
             var infowindow = new google.maps.InfoWindow({ 
-               content: '<strong>' + name + '</strong><br/>' + site 
-                  + '<br/><span class="glyphicon glyphicon-envelope"></span> ' + zipCode
-                  + '<br/><span><img src="../www/img/phone.png" width="13px" height="13px" align="center" /></span> ' + phone
-                  
+               content: '<span class="glyphicon glyphicon-home"></span> <strong>' + name + '</strong><br/>' + site 
+                  + '<br/><span><img src="../www/img/letter.png" width="13px" height="13px" align="center" /></span> ' + zipCode
+                  + '<br/><span><img src="../www/img/phone.png" width="13px" height="13px" align="center" /></span> ' + phone 
             });  
             infowindow.open(map, marker);
             google.maps.event.addListener(marker, 'click', function() {
@@ -76,11 +75,36 @@ function codeAddress(direc, name, site, zipCode, phone) {
             });
          } else {
             var infowindow = new google.maps.InfoWindow({ 
-               content: '<strong>' + name + '</strong><br/>' + site 
-                  + '<br/><span class="glyphicon glyphicon-envelope"></span> ' + zipCode
-                  + '<br/><span><img src="../www/img/phone.png" width="13px" height="13px" align="center" /></span> ' + phone
+               content: '<span class="glyphicon glyphicon-home"></span> <strong>' + name + '</strong><br/>' + site 
+                  + '<br/><span><img src="../www/img/letter.png" width="13px" height="13px" align="center" /></span> ' + zipCode
+                  + '<br/><span><img src="../www/img/phone.png" width="13px" height="13px" align="center" /></span> ' + phone 
+                  + '<p><div id="content" style="width:270px; height:200px;"></div></p>'
             });  
             infowindow.open(map, marker);
+
+            var pano = null;
+            google.maps.event.addListener(infowindow, 'domready', function () {
+               if (pano != null) {
+                  pano.unbind("position");
+                  pano.setVisible(false);
+               }
+               pano = new google.maps.StreetViewPanorama(document.getElementById("content"), {
+                  navigationControl: true,
+                  navigationControlOptions: { style: google.maps.NavigationControlStyle.ANDROID },
+                  enableCloseButton: false,
+                  addressControl: false,
+                  linksControl: false
+               });
+               pano.bindTo("position", marker);
+               pano.setVisible(true);
+            });
+
+            google.maps.event.addListener(infowindow, 'closeclick', function () {
+               pano.unbind("position");
+               pano.setVisible(false);
+               pano = null;
+            });
+
             google.maps.event.addListener(marker, 'click', function() {
                infowindow.open(map, marker);
             });
