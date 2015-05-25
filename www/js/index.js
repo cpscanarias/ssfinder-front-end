@@ -47,7 +47,9 @@ $('document').ready(function() {
         $('#loader').show();
         if(!$('#pagination').is(':empty'))
             $('#pagination').empty();
-        loadSearch(0);
+        if(document.getElementById('search-input').value != '')
+            document.getElementById('search-input').value = '';
+        loadSearch(0, false, null);
     });
 
     $('#a-map').click(function() {

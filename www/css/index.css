@@ -307,6 +307,10 @@ hr {
     height: 350px;
   }
 
+  #content {
+    display: none;
+  }
+
   #google-maps {
     padding: 10px;
   }
@@ -361,6 +365,10 @@ hr {
     display: block;
   }
 
+  #content {
+    display: none;
+  }
+
   #loader {
     position: fixed;
     border: none;
@@ -405,6 +413,10 @@ hr {
 
   #google-maps {
     padding: 8px;
+  }
+
+  #content {
+    display: none;
   }
 
   #googleMap {
