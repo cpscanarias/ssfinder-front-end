@@ -1,7 +1,9 @@
 var size = 0;
 var pageNum = 0;
+var search;
+var searchString;
 
-function loadSearch(initCount) {
+function loadSearch(initCount, isSearch, searchData) {
 	function loadSearchList(jsonTemp) {
     	function loadItem(index) {
     		var categoriesSplited = JSON.stringify(jsonTemp[index].categories).split("\"").join('');
@@ -49,9 +51,14 @@ function loadSearch(initCount) {
 	$('#content-loader').show();
     $('#loader').show();
 
+    search = isSearch;
+    searchString = searchData;
     pageNum = initCount;
 	xmlhttp = new XMLHttpRequest();
-	xmlhttp.open("GET","http://www.robotclip.org:4088/social_service/social_services_summary/?page=" + (initCount + 1), true);
+	if(isSearch)
+		xmlhttp.open("GET","http://www.robotclip.org:4088/social_service/social_services_search/" + searchData + "/?page=" + (initCount + 1), true);
+	else
+		xmlhttp.open("GET","http://www.robotclip.org:4088/social_service/social_services_summary/?page=" + (initCount + 1), true);
 	xmlhttp.onreadystatechange = function() {
 	    if(xmlhttp.readyState == 4) {
 	    	var jsonTemp = JSON.parse(xmlhttp.responseText);
@@ -83,7 +90,10 @@ function pageSelected(pageIndex, sizeTemp) {
 			$('#left-arrow').removeClass('disabled');
 			$('#right-arrow').removeClass('disabled');
 		}
-		loadSearch(pageNum);
+		if(search)
+			loadSearch(pageNum, true, searchString);
+		else
+			loadSearch(pageNum, false, null);
 	}
 }
 
@@ -159,7 +169,9 @@ $(document).on('click', '#search-button', function() {
 		var searchData = "";
 		for(i = 0; i < searchWords.length; i++) 
 			searchData += searchWords[i] + "/";
-		alert(searchData);
+		if(!$('#pagination').is(':empty'))
+			$('#pagination').empty();
+		loadSearch(0, true, searchData);
 	} else {
 		var html = '<p id="search-null"><h3>No se han obtenido resultados.</h3></p>'
 			+ '<h4>Prueba algunas recomendaciones:</h4>'
