@@ -170,6 +170,7 @@ $("#search-input").keyup(function (e) {
 
 $(document).on('click', '#search-button', function() {
 	if(document.getElementById('search-input').value != '') {
+		setSearch(false);
 		var irrelevantWords = ["a", "ante", "cabe", "con", "contra", "de", "desde", "en", 
 			"entre", "hasta", "para", "por", "segun", "sobre", "tras", "durante", "mediante", 
 			"sin", "con", "el", "la", "los", "las", "un", "una", "unos", "unas", "al", "del",
@@ -190,9 +191,12 @@ $(document).on('click', '#search-button', function() {
 
 		var searchData = "";
 		for(i = 0; i < searchWords.length; i++) 
-			searchData += searchWords[i] + "/";
-		if(!$('#pagination').is(':empty'))
-			$('#pagination').empty();
-		loadSearch(0, true, searchData);
-	} 
+			if(searchWords[i] != '')
+				searchData += searchWords[i] + "/";
+		if(searchData != '') {
+			if(!$('#pagination').is(':empty'))
+				$('#pagination').empty();
+			loadSearch(0, true, searchData);
+		}
+	}
 });
