@@ -30,6 +30,12 @@ var app = {
     }
 };
 
+var searchShowed = false;
+
+function setSearch(bool) {
+    searchShowed = bool;
+}
+
 $('document').ready(function() {
     $('#a-home')[0].click();
     $('#content-loader').show();
@@ -43,12 +49,13 @@ $('document').ready(function() {
     });
 
     $('#a-headquarters').click(function() {
-        if($('#search-list').is(':empty') || $('#search-null').is(':visible')) {
+        if($('#search-list').is(':empty') || $('#search-null').is(':visible') || (searchShowed == false && $('#headquarters').is(':visible'))) {
             $('#content-loader').show();
             $('#loader').show();
             if(document.getElementById('search-input').value != '')
                 document.getElementById('search-input').value = '';
             loadSearch(0, false, null);
+            searchShowed = true;
         }
     });
 

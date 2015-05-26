@@ -44,6 +44,7 @@ function loadSearch(initCount, isSearch, searchData) {
 					+ '<h5>- Comprueba que las <strong>palabras</strong> están <strong>bien escritas</strong>.</h5>'
 					+ '<h5>- Busca por <strong>nombre</strong>, <strong>categorías</strong> o <strong>dirección</strong>.</h5>'
 					+ '<h5>- Borra <strong>caracteres extraños</strong> o <strong>espacios de más</strong>.</h5>'
+					+ '<h5>- Si tu búsqueda es correcta, envía un email con los datos a ssfinder@aldeasinfantiles.es y añadiremos el centro.</h5>'
 					+ '<h5>Pulsa <strong><span class="glyphicon glyphicon-search"></span> Servicios Sociales</strong> para volver a la lista principal.</h5>';
 				$('#search-list').empty();
 				$('#pagination').empty();
@@ -170,6 +171,7 @@ $("#search-input").keyup(function (e) {
 
 $(document).on('click', '#search-button', function() {
 	if(document.getElementById('search-input').value != '') {
+		setSearch(false);
 		var irrelevantWords = ["a", "ante", "cabe", "con", "contra", "de", "desde", "en", 
 			"entre", "hasta", "para", "por", "segun", "sobre", "tras", "durante", "mediante", 
 			"sin", "con", "el", "la", "los", "las", "un", "una", "unos", "unas", "al", "del",
@@ -190,9 +192,12 @@ $(document).on('click', '#search-button', function() {
 
 		var searchData = "";
 		for(i = 0; i < searchWords.length; i++) 
-			searchData += searchWords[i] + "/";
-		if(!$('#pagination').is(':empty'))
-			$('#pagination').empty();
-		loadSearch(0, true, searchData);
-	} 
+			if(searchWords[i] != '')
+				searchData += searchWords[i] + "/";
+		if(searchData != '') {
+			if(!$('#pagination').is(':empty'))
+				$('#pagination').empty();
+			loadSearch(0, true, searchData);
+		}
+	}
 });

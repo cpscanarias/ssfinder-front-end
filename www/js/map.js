@@ -69,7 +69,6 @@ function codeAddress(direc, name, site, zipCode, phone) {
                   + '<br/><span><img src="../www/img/letter.png" width="13px" height="13px" align="center" /></span> ' + zipCode
                   + '<br/><span><img src="../www/img/phone.png" width="13px" height="13px" align="center" /></span> ' + phone 
             });  
-            infowindow.open(map, marker);
             google.maps.event.addListener(marker, 'click', function() {
                infowindow.open(map, marker);
             });
@@ -110,7 +109,7 @@ function codeAddress(direc, name, site, zipCode, phone) {
             });
          }
       } else {
-         alert('Problema con la geolocalización: ' + status);
+         //alert('Problema con la geolocalización: ' + status);
       }
       $('#content-loader').hide();
       $('#loader').hide();
