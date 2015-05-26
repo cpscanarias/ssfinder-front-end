@@ -43,21 +43,24 @@ $('document').ready(function() {
     });
 
     $('#a-headquarters').click(function() {
-        $('#content-loader').show();
-        $('#loader').show();
-        if(!$('#pagination').is(':empty'))
-            $('#pagination').empty();
-        if(document.getElementById('search-input').value != '')
-            document.getElementById('search-input').value = '';
-        loadSearch(0, false, null);
+        if($('#search-list').is(':empty') || $('#search-null').is(':visible')) {
+            $('#content-loader').show();
+            $('#loader').show();
+            if(document.getElementById('search-input').value != '')
+                document.getElementById('search-input').value = '';
+            loadSearch(0, false, null);
+        }
     });
 
+    var mapLoaded = false;
     $('#a-map').click(function() {
-        $('#content-loader').show();
-        $('#loader').show();
-        if(!$('#detail .panel-body').is(':empty'))
+        if(!$('#detail .panel-body').is(':empty') || mapLoaded == false) {
+            $('#content-loader').show();
+            $('#loader').show();
             $('#detail .panel-body').empty();
-        loadMapScript(null, false);
+            loadMapScript(null, false);
+            mapLoaded = true;
+        }
     });
 
     xmlhttp = new XMLHttpRequest();
