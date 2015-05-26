@@ -1,9 +1,11 @@
-var size = 0;
-var pageNum = 0;
+var size;
+var pageNum;
 var search;
 var searchString;
 
 function loadSearch(initCount, isSearch, searchData) {
+	size = 0;
+    pageNum = 0;
 	function loadSearchList(jsonTemp) {
     	function loadItem(index) {
     		var categoriesSplited = JSON.stringify(jsonTemp[index].categories).split("\"").join('');
@@ -36,8 +38,19 @@ function loadSearch(initCount, isSearch, searchData) {
 		}
 		
 		function loadJSONItem(size) {
-			for(i = 0; i < size; i++) {
-				$('#search-list').append(loadItem(i));
+			if(size == 0) {
+				var html = '<p id="search-null"><h3>No se han obtenido resultados.</h3></p>'
+					+ '<h4>Prueba algunas recomendaciones:</h4>'
+					+ '<h5>- Comprueba que las <strong>palabras</strong> están <strong>bien escritas</strong>.</h5>'
+					+ '<h5>- Busca por <strong>nombre</strong>, <strong>categorías</strong> o <strong>dirección</strong>.</h5>'
+					+ '<h5>- Borra <strong>caracteres extraños</strong> o <strong>espacios de más</strong>.</h5>'
+					+ '<h5>Pulsa <strong><span class="glyphicon glyphicon-search"></span> Servicios Sociales</strong> para volver a la lista principal.</h5>';
+				$('#search-list').empty();
+				$('#pagination').empty();
+				$('#search-list').append(html);
+			} else {
+				for(i = 0; i < size; i++)
+					$('#search-list').append(loadItem(i));
 			}
 			$('#content-loader').hide();
             $('#loader').hide();
@@ -65,8 +78,14 @@ function loadSearch(initCount, isSearch, searchData) {
 	        var jsonResponse = jsonTemp.results;
 	        size = jsonTemp.count;
 	        loadSearchList(jsonResponse);
-	        if($('#pagination').is(':empty'))
-	        	loadPagination(jsonResponse);
+	        if(isSearch) {
+	        	if(jsonResponse.length > 9) {	        	
+	        		if($('#pagination').is(':empty'))
+	        			loadPagination(jsonResponse);
+	        	}
+	        } else
+	        	if($('#pagination').is(':empty'))
+	        		loadPagination(jsonResponse);
 	    }
 	}
 	xmlhttp.send(null);
@@ -78,7 +97,7 @@ function pageSelected(pageIndex, sizeTemp) {
 		$('#page' + pageIndex).addClass('active');
 		pageNum = parseInt(pageIndex);
 		
-		if(pageNum == sizeTemp) {
+		if(pageNum == (sizeTemp - 1)) {
 			$('#right-arrow').addClass('disabled');
 			$('#left-arrow').removeClass('disabled');
 		}
@@ -86,7 +105,7 @@ function pageSelected(pageIndex, sizeTemp) {
 			$('#left-arrow').addClass('disabled');
 			$('#right-arrow').removeClass('disabled');
 		}
-		if(pageNum > 0 && pageNum < sizeTemp) {
+		if(pageNum > 0 && pageNum < (sizeTemp - 1)) {
 			$('#left-arrow').removeClass('disabled');
 			$('#right-arrow').removeClass('disabled');
 		}
@@ -100,12 +119,13 @@ function pageSelected(pageIndex, sizeTemp) {
 function loadPagination(jsonTemp) {
 	var pagination;
 	var sizeTemp = parseInt(size / jsonTemp.length);
+	if((size % jsonTemp.length) != 0)
+		sizeTemp++;
 
-	if(jsonTemp.length > 1) {
+	if(size > 10) {
 		pagination = '<li id="left-arrow"><a href="#headquarters" aria-label="Anterior"><span aria-hidden="true">&laquo;</span></a></li>'
-		for(i = 0; i <= sizeTemp; i++) {
+		for(i = 0; i < sizeTemp; i++) 
 			pagination += '<li id="page' + i + '"><a id="pageLink" href="#headquarters" onClick="pageSelected(\'' + i + '\', \'' + sizeTemp + '\')">' + (i + 1) + '</a></li>';
-		}
 		pagination += '<li id="right-arrow"><a href="#headquarters" aria-label="Siguiente"><span aria-hidden="true">&raquo;</span></a></li>';
 	}
 
@@ -138,6 +158,8 @@ $(document).on('click', '#search-list > a', function() {
     $('#loader').show();
     if (!$('#detail .panel-body').is(':empty')) 
         $('#detail .panel-body').empty();
+    if(!$('#map #googleMap').is(':empty'))
+    	$('#map #googleMap').empty();
 	loadDetail(this.id);;
 });
 
@@ -172,14 +194,5 @@ $(document).on('click', '#search-button', function() {
 		if(!$('#pagination').is(':empty'))
 			$('#pagination').empty();
 		loadSearch(0, true, searchData);
-	} else {
-		var html = '<p id="search-null"><h3>No se han obtenido resultados.</h3></p>'
-			+ '<h4>Prueba algunas recomendaciones:</h4>'
-			+ '<h5>- Comprueba que las <strong>palabras</strong> están <strong>bien escritas</strong>.</h5>'
-			+ '<h5>- Busca por <strong>nombre</strong>, <strong>categorías</strong> o <strong>dirección</strong>.</h5>'
-			+ '<h5>- Borra <strong>caracteres extraños</strong> o <strong>espacios de más</strong>.</h5>';
-		$('#search-list').empty();
-		$('#pagination').empty();
-		$('#search-list').append(html);
-	}
+	} 
 });

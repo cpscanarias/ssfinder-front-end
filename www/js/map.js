@@ -78,7 +78,7 @@ function codeAddress(direc, name, site, zipCode, phone) {
                content: '<span class="glyphicon glyphicon-home"></span> <strong>' + name + '</strong><br/>' + site 
                   + '<br/><span><img src="../www/img/letter.png" width="13px" height="13px" align="center" /></span> ' + zipCode
                   + '<br/><span><img src="../www/img/phone.png" width="13px" height="13px" align="center" /></span> ' + phone 
-                  + '<p><div id="content" style="width:270px; height:200px;"></div></p>'
+                  + '<p><div id="content" style="width:290px; height:200px;"></div></p>'
             });  
             infowindow.open(map, marker);
 
