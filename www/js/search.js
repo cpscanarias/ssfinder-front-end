@@ -44,6 +44,7 @@ function loadSearch(initCount, isSearch, searchData) {
 					+ '<h5>- Comprueba que las <strong>palabras</strong> están <strong>bien escritas</strong>.</h5>'
 					+ '<h5>- Busca por <strong>nombre</strong>, <strong>categorías</strong> o <strong>dirección</strong>.</h5>'
 					+ '<h5>- Borra <strong>caracteres extraños</strong> o <strong>espacios de más</strong>.</h5>'
+					+ '<h5>- Si tu búsqueda es correcta, envía un email con los datos a ssfinder@aldeasinfantiles.es y añadiremos el centro.</h5>'
 					+ '<h5>Pulsa <strong><span class="glyphicon glyphicon-search"></span> Servicios Sociales</strong> para volver a la lista principal.</h5>';
 				$('#search-list').empty();
 				$('#pagination').empty();
