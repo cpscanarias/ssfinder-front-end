@@ -39,12 +39,12 @@ function loadSearch(initCount, isSearch, searchData) {
 		
 		function loadJSONItem(size) {
 			if(size == 0) {
-				var html = '<p id="search-null"><h3>No se han obtenido resultados.</h3></p>'
+				var html = '<p id="search-null"><h3><span><img src="img/error.png" width="24px" height="24px" align="center" /></span> No se han obtenido resultados.</h3></p>'
 					+ '<h4>Prueba algunas recomendaciones:</h4>'
 					+ '<h5>- Comprueba que las <strong>palabras</strong> están <strong>bien escritas</strong>.</h5>'
 					+ '<h5>- Busca por <strong>nombre</strong>, <strong>categorías</strong> o <strong>dirección</strong>.</h5>'
 					+ '<h5>- Borra <strong>caracteres extraños</strong> o <strong>espacios de más</strong>.</h5>'
-					+ '<h5>- Si tu búsqueda es correcta, envía un email con los datos a ssfinder@aldeasinfantiles.es y añadiremos el centro.</h5>'
+					+ '<h5>- Si tu búsqueda es correcta, envía un email con los datos a <strong>ssfinder@aldeasinfantiles.es</strong> y añadiremos el centro.</h5>'
 					+ '<h5>Pulsa <strong><span class="glyphicon glyphicon-search"></span> Servicios Sociales</strong> para volver a la lista principal.</h5>';
 				$('#search-list').empty();
 				$('#pagination').empty();
