@@ -7,7 +7,7 @@ function loadSearch(initCount, isSearch, searchData) {
 	size = 0;
     pageNum = 0;
 	function loadSearchList(jsonTemp) {
-    	function loadItem(index) {
+    	function loadPanel(index) {
     		var categoriesSplited = JSON.stringify(jsonTemp[index].categories).split("\"").join('');
     		categoriesSplited = categoriesSplited.split("[").join('');
 			categoriesSplited = categoriesSplited.split("]").join('');
@@ -15,11 +15,11 @@ function loadSearch(initCount, isSearch, searchData) {
 			var htmlTitle = '<a id="' + jsonTemp[index].id + '" class="headquarter-panel-a" href="#detail"><div id="headquarter-panel"><h3>' + jsonTemp[index].name + '</h3>';
 			var htmlBody = '<p id="headquarter-panel-info">' + categoriesSplited + '<br/><strong>' + jsonTemp[index].town 
 				+ '</strong> (' + jsonTemp[index].province + ')<br/>';
-			var social = loadSocialItems(index);
+			var social = loadSocialData(index);
 			return htmlTitle + htmlBody + social + '</p></div></a>';
 		};
 
-		function loadSocialItems(index) {
+		function loadSocialData(index) {
 			var social = '';
 			if(jsonTemp[index].web != '') 
 				social += '<span><img src="../www/img/web.png" width="19px" height="19px" align="center" /></span> ';
@@ -37,7 +37,7 @@ function loadSearch(initCount, isSearch, searchData) {
 			return social;
 		}
 		
-		function loadJSONItem(size) {
+		function initPanels(size) {
 			if(size == 0) {
 				var html = '<p id="search-null"><h3><span><img src="img/error.png" width="24px" height="24px" align="center" /></span> No se han obtenido resultados.</h3></p>'
 					+ '<h4>Prueba algunas recomendaciones:</h4>'
@@ -51,7 +51,7 @@ function loadSearch(initCount, isSearch, searchData) {
 				$('#search-list').append(html);
 			} else {
 				for(i = 0; i < size; i++)
-					$('#search-list').append(loadItem(i));
+					$('#search-list').append(loadPanel(i));
 			}
 			$('#content-loader').hide();
             $('#loader').hide();
@@ -59,7 +59,7 @@ function loadSearch(initCount, isSearch, searchData) {
 
 		if(!$('#search-list').is(':empty'))
 			$('#search-list').empty();
-		loadJSONItem(jsonTemp.length);
+		initPanels(jsonTemp.length);
 	};
 
 	$('#content-loader').show();

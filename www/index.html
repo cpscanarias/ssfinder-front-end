@@ -4,6 +4,7 @@
         <meta charset="utf-8" />
         <meta name="format-detection" content="telephone=no" />
         <meta name="msapplication-tap-highlight" content="no" />
+        <link rel="icon" href="../www/icon.png"/>
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=medium-dpi" />
         <title>SSFinder</title>
@@ -22,7 +23,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a href="#home" class="navbar-brand" id="ssfinder-title"><span id="ssfinder-icon"><img src="../www/icon.png" width="30px" height="30px" align="center" /></span> SSFinder <span id="version-title">v1.0</a>
+                        <a href="#home" class="navbar-brand" id="ssfinder-title"><span id="ssfinder-icon"><img src="../www/icon.png" width="30px" height="30px" align="center" /></span> SSFinder <span id="version-title">v1.2</a>
                     </div>
                     <div class="collapse navbar-collapse">
                         <ul id="custom-nav" class="nav navbar-nav">
@@ -40,7 +41,7 @@
                             <div id="div-well" class="well well-sm"><span><img src="img/about.png" width="24px" height="24px" align="center" /></span> Utiliza el <strong>botón de navegación</strong> para ver las distintas opciones. Toca en <strong>Inicio</strong> o en el título para volver a esta página.</div>
                             <div id="div-well" class="well well-sm"><span><img src="img/search.png" width="24px" height="24px" align="center" /></span> La opción <strong>Servicios Sociales</strong> muestra un buscador con todos los centros que hay en Canarias. Si tocas en uno de ellos, se mostrará información detallada así como su ubicación en el mapa.</div>
                             <div id="div-well" class="well well-sm"><span><img src="img/maps.png" width="24px" height="24px" align="center" /></span> <strong>Localizaciones</strong> muestra un mapa general con todos los centros marcados.</div>
-                            <div id="div-well" class="well well-sm"><span><img src="img/error.png" width="24px" height="24px" align="center" /></span> Si no encuentras un centro, no dudes en contactarnos a <strong>ssfinder@aldeasinfantiles.es</strong> y enviarnos los datos para añadirlo.</div>
+                            <div id="div-well" class="well well-sm"><span><img src="img/error.png" width="24px" height="24px" align="center" /></span> Si no encuentras un centro o quieres registrar tu ONG, no dudes en contactarnos a <strong>ssfinder@aldeasinfantiles.es</strong> y enviarnos los datos.</div>
                             <p id="num-headquarters">Centros registrados: </p>
                         </div>
                     </div>
@@ -74,15 +75,16 @@
                     <div id="transparent-div" class="panel panel-primary">
                         <div id="panel-heading" class="panel-heading"><span class="glyphicon glyphicon-map-marker"></span> Localizaciones</div>
                         <div id="google-maps" class="panel-body">
+                            <div id="map-filter" style="margin-bottom:10px;"></div>
                             <div id="googleMap"></div>
-                            Toca en los marcadores para mostrar los datos, para más información del centro utiliza el buscador.
+                            <p style="text-align:center;">Toca en los marcadores para mostrar los datos, si quieres más información utiliza el buscador.</p>
                         </div>
                     </div>
                 </div>
                 <div id="content-loader" unselectable="on" onselectstart="return false;" onmousedown="return false;"></div>
                 <div class="panel panel-primary" id="loader" unselectable="on" onselectstart="return false;" onmousedown="return false;">
                     <img src="img/loading.gif"/><br/>
-                    Cargando datos...
+                    <p id="loading-message">Cargando datos...</p>
                 </div>
             </div>
             <div class="pager">
